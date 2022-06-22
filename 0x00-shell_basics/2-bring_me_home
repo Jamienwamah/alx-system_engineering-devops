@@ -1,2 +1,2 @@
-script that shows that changes the working directory to home directory
+#!/bin/bash
 cd
