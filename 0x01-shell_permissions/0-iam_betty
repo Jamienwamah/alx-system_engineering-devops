@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo /tmp/h$ tail -i 0-iam_betty | wc -c
+sudo /tmp/h$ tail -i iam_betty | wc -c
 
