@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# This script prints "Holberton school" 10 times
-n=0
+# script that displays Best School 10 times.
 
-until [ $n -ge 10 ]
+count=0
+
+until [ $count -eq 10 ]
 do
-    echo "Holberton School"
-    n=$(( n + 1 ))
+ echo "Best School"
+ (( count++ ))
 done
