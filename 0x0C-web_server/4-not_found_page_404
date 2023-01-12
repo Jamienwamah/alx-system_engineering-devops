@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
-#Configure your Nginx server to have a custom 404 page that contains the string Ceci n'est pas une page.
+# sets up a new 404 error page
+sudo apt-get update
+sudo apt-get install -y nginx 
+echo "Hello World!" > index.html
+sudo mv index.html /var/www/html
 
-STRING="Hello World!"
 
-REDIRECT="\n\tlocation /redirect_me {\n\t\treturn 301 https://youtu.be/dQw4w9WgXcQ;\n\t}\n"
-FILE="/etc/nginx/sites-available/default"
-
-ERRORFILE="/usr/share/nginx/html/404error.html"
-FOUR="Ceci n'est pas une page"
-ERRORREDIRECT="\n\terror_page 404 /404error.html;\n\tlocation = /404error.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
-
-apt-get -y update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-sudo echo "$STRING" > /var/www/html/index.nginx-debian.html
-sed -i "37i\ $REDIRECT" "$FILE"
-
-echo "$FOUR" > "$ERRORFILE"
-sed -i "37i\ $ERRORREDIRECT" "$FILE"
-
-service nginx restart
+echo "Ceci n'est pas une page" > 404.html
+sudo mv 404.html /var/www/html
+echo "server {
+   listen 80 default_server;
+   listen [::]:80 default_server;
+   
+   root /var/www/html;
+   index index.html;
+   location /redirect_me {
+      return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+   }
+   error_page 404 /404.html;
+   location = /404.html{
+      internal;
+   }
+}" > default
+sudo mv -f default /etc/nginx/sites-available/default
+sudo service nginx restart
