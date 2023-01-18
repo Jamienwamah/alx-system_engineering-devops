@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-#Installs and configures HAproxy in a load balancer server
+# Installs HAProxy version 1.8 with the following configurations:
+#+    Enables management via the init script.
+#+    Distributes requests using a round-robin algorithm.
 
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:vbernat/haproxy-1.8
@@ -15,6 +17,7 @@ printf %s "global
     maxconn 2000
     user haproxy
     group haproxy
+
 defaults
     log     global
     mode    http
@@ -25,6 +28,7 @@ defaults
     timeout connect  5000
     timeout client  10000
     timeout server  10000
+
 listen hbnb
     bind 0.0.0.0:80
     mode http
@@ -33,8 +37,8 @@ listen hbnb
     balance roundrobin
     option httpclose
     option forwardfor
-    server 59637-web-01 54.160.85.72:80 check
-    server 59637-web-02 35.175.132.106:80 check
+    server 1733-web-01 3.235.21.36:80 check
+    server 1733-web-02 3.227.3.18:80 check
 " >> /etc/haproxy/haproxy.cfg
 
 service haproxy start
