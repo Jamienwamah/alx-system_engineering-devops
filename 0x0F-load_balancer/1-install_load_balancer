@@ -13,7 +13,7 @@ mv /etc/haproxy/haproxy.cfg{,.original}
 touch /etc/haproxy/haproxy.cfg
 
 printf %s "global
-    log 127.0.0.1 local0 notice
+    log 100.25.20.223 local0 notice
     maxconn 2000
     user haproxy
     group haproxy
@@ -37,8 +37,8 @@ listen hbnb
     balance roundrobin
     option httpclose
     option forwardfor
-    server 1733-web-01 3.235.21.36:80 check
-    server 1733-web-02 3.227.3.18:80 check
+    server 1733-web-01 3.52.91.154.184 check
+    server 1733-web-02 3.54.196.38.119 check
 " >> /etc/haproxy/haproxy.cfg
 
 service haproxy start
